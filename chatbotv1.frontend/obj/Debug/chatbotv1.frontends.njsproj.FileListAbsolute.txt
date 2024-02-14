@@ -1,3 +1,6 @@
 C:\Users\zette\source\repos\chatbotv1\chatbotv1.frontend\obj\Debug\chatbotv1.frontends.njsproj.AssemblyReference.cache
 C:\Users\zette\source\repos\chatbotv1\chatbotv1.frontend\obj\Debug\chatbotv1.frontends.njsproj.CoreCompileInputs.cache
 C:\Users\zette\source\repos\chatbotv1\chatbotv1.frontend\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\zette\source\repos\seasharpu\chatbot\chatbotv1.frontend\obj\Debug\chatbotv1.frontends.njsproj.AssemblyReference.cache
+C:\Users\zette\source\repos\seasharpu\chatbot\chatbotv1.frontend\obj\Debug\chatbotv1.frontends.njsproj.CoreCompileInputs.cache
+C:\Users\zette\source\repos\seasharpu\chatbot\chatbotv1.frontend\bin\Microsoft.NodejsTools.WebRole.dll

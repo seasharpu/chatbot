@@ -20,8 +20,7 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="src\index.html" />
-    <Content Include="ts-config.json" />
-    <None Include="src\app.tsx" />
+    <None Include="src\App.tsx" />
     <None Include="src\index.tsx" />
   </ItemGroup>
   <ItemGroup>

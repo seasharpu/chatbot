@@ -1,3 +1,4 @@
+using chatbotv1.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace chatbotv1.Controllers
@@ -18,7 +19,7 @@ namespace chatbotv1.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

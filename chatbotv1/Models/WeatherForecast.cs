@@ -1,4 +1,4 @@
-namespace chatbotv1
+namespace chatbotv1.Models
 {
     public class WeatherForecast
     {
