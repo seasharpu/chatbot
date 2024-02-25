@@ -11,22 +11,22 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
-        with:
-          vs-version: '[17.0,17.1)'
+      - name: Add msbuild
+        run: sudo apt-get install -y msbuild
+
+      - name: Restore dependencies
+        run: msbuild chatbotv1.sln -t:Restore
 
       - name: Build app for release
-        run: msbuild chatbotv1.sln -t:rebuild -verbosity:diag -property:Configuration=Release
+        run: msbuild chatbotv1.sln -t:Build -verbosity:diag -property:Configuration=Release
 
       - name: MSBuild publish
-        run: msbuild chatbotv1.sln -t:publish -p:PublishDir="../myapp"
-
+        run: msbuild chatbotv1.sln -t:Publish -p:PublishDir="../myapp"
 
 #      - name: Set up .NET Core
 #        uses: actions/setup-dotnet@v1
