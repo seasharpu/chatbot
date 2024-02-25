@@ -138,6 +138,7 @@ bin
 
 #obj
 obj
+chatbotv1/obj
 
 #user
 *.user
@@ -151,3 +152,6 @@ dist
 /chatbotv1/obj/project.assets.json
 /chatbotv1/obj/project.nuget.cache
 /chatbotv1/obj/Debug/net8.0/chatbotv1.csproj.AssemblyReference.cache
+chatbotv1/obj/Debug/net8.0/chatbotv1.AssemblyInfo.cs
+chatbotv1/obj/Debug/net8.0/chatbotv1.AssemblyInfoInputs.cache
+chatbotv1/obj/Debug/net8.0/chatbotv1.GeneratedMSBuildEditorConfig.editorconfig

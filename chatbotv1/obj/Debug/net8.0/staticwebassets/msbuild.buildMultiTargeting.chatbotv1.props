@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\chatbotv1.props" />
-</Project>
