@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zette\\source\\repos\\chatbotv1\\chatbotv1\\chatbotv1.csproj": {}
+    "C:\\Users\\zette\\source\\repos\\seasharpu\\chatbot\\chatbotv1\\chatbotv1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zette\\source\\repos\\chatbotv1\\chatbotv1\\chatbotv1.csproj": {
+    "C:\\Users\\zette\\source\\repos\\seasharpu\\chatbot\\chatbotv1\\chatbotv1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zette\\source\\repos\\chatbotv1\\chatbotv1\\chatbotv1.csproj",
+        "projectUniqueName": "C:\\Users\\zette\\source\\repos\\seasharpu\\chatbot\\chatbotv1\\chatbotv1.csproj",
         "projectName": "chatbotv1",
-        "projectPath": "C:\\Users\\zette\\source\\repos\\chatbotv1\\chatbotv1\\chatbotv1.csproj",
+        "projectPath": "C:\\Users\\zette\\source\\repos\\seasharpu\\chatbot\\chatbotv1\\chatbotv1.csproj",
         "packagesPath": "C:\\Users\\zette\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zette\\source\\repos\\chatbotv1\\chatbotv1\\obj\\",
+        "outputPath": "C:\\Users\\zette\\source\\repos\\seasharpu\\chatbot\\chatbotv1\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\zette\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +44,18 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
