@@ -145,3 +145,8 @@ obj
 #distfolder
 
 dist
+/chatbotv1/obj/Debug/net8.0/chatbotv1.assets.cache
+/chatbotv1/obj/chatbotv1.csproj.nuget.g.props
+/chatbotv1/obj/chatbotv1.csproj.nuget.dgspec.json
+/chatbotv1/obj/project.assets.json
+/chatbotv1/obj/project.nuget.cache
