@@ -6,9 +6,14 @@ var config = new ConfigurationBuilder()
     .AddUserSecrets<Program>()
     .Build();
 string SQLConnectionString = config["AZURE_SQL_CONNECTIONSTRING"];
-Console.WriteLine("Sql:" + SQLConnectionString);
+string redisConnectionString = config["AZURE_REDIS_CONNECTIONSTRING"];
 
 builder.Services.AddDbContext<MyDBContext>(options => options.UseSqlServer(SQLConnectionString));
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = redisConnectionString;
+    options.InstanceName = "SampleInstance";
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
