@@ -32,7 +32,7 @@ jobs:
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: dotnet install EF
-        run: dotnet tool install -g dotnet-ef --version 7.0.14  
+        run: dotnet tool install -g dotnet-ef 
         
       - name: generate database migration bundle
         run: dotnet ef migrations bundle --runtime linux-x64 -p chatbotv1/chatbotv1.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate    
