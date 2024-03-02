@@ -1,3 +1,4 @@
+using chatbotv1.Data;
 using chatbotv1.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,18 @@ namespace chatbotv1.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private MyDBContext _context;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, MyDBContext context)
         {
             _logger = logger;
+            _context = context;
+        }
+
+        [HttpGet]
+        public String GetDefault() 
+        {
+            return _context.Database.ProviderName ?? "";
         }
 
         [HttpGet("GetWeatherForecast")]
