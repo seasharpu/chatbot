@@ -1,13 +1,19 @@
 using chatbotv1.Data;
 using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
+
+string? SQLConnectionString = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
+string? redisConnectionString = Environment.GetEnvironmentVariable("AZURE_REDIS_CONNECTIONSTRING");
 var config = new ConfigurationBuilder()
     .AddUserSecrets<Program>()
     .Build();
-string SQLConnectionString = config["AZURE_SQL_CONNECTIONSTRING"];
-string redisConnectionString = config["AZURE_REDIS_CONNECTIONSTRING"];
+if(SQLConnectionString == null || redisConnectionString == null) {
+    SQLConnectionString = config["AZURE_SQL_CONNECTIONSTRING"];
+    redisConnectionString = config["AZURE_REDIS_CONNECTIONSTRING"];
+}
 
+// Add services to the container.
 builder.Services.AddDbContext<MyDBContext>(options => options.UseSqlServer(SQLConnectionString));
 builder.Services.AddStackExchangeRedisCache(options =>
 {
