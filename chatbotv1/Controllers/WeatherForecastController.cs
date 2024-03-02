@@ -1,6 +1,7 @@
 using chatbotv1.Data;
 using chatbotv1.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace chatbotv1.Controllers
 {
@@ -25,7 +26,7 @@ namespace chatbotv1.Controllers
         [HttpGet]
         public String GetDefault() 
         {
-            return _context.Database.ProviderName ?? "";
+            return _context.Database.GetDbConnection().Database ?? "";
         }
 
         [HttpGet("GetWeatherForecast")]
