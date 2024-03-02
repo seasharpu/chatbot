@@ -32,9 +32,12 @@ jobs:
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: dotnet install EF
-        run: dotnet tool install -g dotnet-ef 
-        
+        run: dotnet tool install -g dotnet-ef
+
       - name: generate database migration bundle
+        env:
+          AZURE_SQL_CONNECTIONSTRING: ${{ secrets.AZURE_SQL_CONNECTIONSTRING }}
+          AZURE_REDIS_CONNECTIONSTRING: ${{ secrets.AZURE_REDIS_CONNECTIONSTRING }}
         run: dotnet ef migrations bundle --runtime linux-x64 -p chatbotv1/chatbotv1.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate    
 
       - name: Upload artifact for deployment job
