@@ -23,6 +23,9 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
+        env:
+          AZURE_SQL_CONNECTIONSTRING: ${{ secrets.AZURE_SQL_CONNECTIONSTRING }}
+          AZURE_REDIS_CONNECTIONSTRING: ${{ secrets.AZURE_REDIS_CONNECTIONSTRING }}
         run: dotnet build --configuration Release
 
       - name: dotnet publish
