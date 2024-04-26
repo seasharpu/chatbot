@@ -38,9 +38,7 @@ jobs:
         env:
           AZURE_SQL_CONNECTIONSTRING: ${{ secrets.AZURE_SQL_CONNECTIONSTRING }}
           AZURE_REDIS_CONNECTIONSTRING: ${{ secrets.AZURE_REDIS_CONNECTIONSTRING }}
-        run:
-          dotnet ef dbcontext scaffold ${{ secrets.AZURE_SQL_CONNECTIONSTRING }} Microsoft.EntityFrameworkCore.SqlServer
-          dotnet ef migrations bundle --runtime linux-x64 -p chatbotv1/chatbotv1.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate
+        run: dotnet ef migrations bundle --runtime linux-x64 -p chatbotv1/chatbotv1.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate    
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3

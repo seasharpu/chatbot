@@ -2,5 +2,6 @@
 {
     public class Firebase
     {
+        public int Id { get; set; }
     }
 }

@@ -156,3 +156,4 @@ chatbotv1/obj/Debug/net8.0/chatbotv1.AssemblyInfo.cs
 chatbotv1/obj/Debug/net8.0/chatbotv1.AssemblyInfoInputs.cache
 chatbotv1/obj/Debug/net8.0/chatbotv1.GeneratedMSBuildEditorConfig.editorconfig
 efbundle.exe
+migrations
