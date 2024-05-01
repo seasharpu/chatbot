@@ -9,6 +9,7 @@ namespace chatbotv1.Data
         public DbSet<Firebase> Firebase { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserQuery> UserQueries { get; set; }
+        public DbSet<History> Conversations { get; set; }
 
         public MyDBContext(DbContextOptions<MyDBContext> options) : base(options) {}
 
