@@ -6,7 +6,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace chatbotv1.Services
 {
-    public class OpenAIService(IHttpClientFactory httpClientFactory, IConfiguration config)
+    public class OpenAIService(IHttpClientFactory httpClientFactory, IConfiguration config) : iOpenAIService
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IConfiguration _config = config;

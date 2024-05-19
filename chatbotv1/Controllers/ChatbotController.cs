@@ -10,12 +10,12 @@ namespace chatbotv1.Controllers
 {
     [ApiController]
     [Route("chatbot")]
-    public class ChatbotController(OpenAIService openAIService, MyDBContext dbContext) : ControllerBase
+    public class ChatbotController(iOpenAIService openAIService, MyDBContext dbContext) : ControllerBase
     {
-        private readonly OpenAIService _openAIService = openAIService;
+        private readonly iOpenAIService _openAIService = openAIService;
         private readonly MyDBContext _context = dbContext;
 
-        [HttpPost]
+        [HttpPost("/new")]
         public async Task<IActionResult> NewThread(int userid, string message)
         {
             var user = await _context.Users.FindAsync(userid);
@@ -23,7 +23,7 @@ namespace chatbotv1.Controllers
             {
                 return Challenge();
             }
-            History history = new(user) { };
+            History history = new() { User = user };
             _context.Conversations.Add(history);
             await _context.SaveChangesAsync();
             return await ContinueThread(userid, message, history.Id);
@@ -79,10 +79,10 @@ namespace chatbotv1.Controllers
             {
                 return Challenge();
             }
-            return _context.Conversations.Include(c => c.User == user).ToList();
+            return _context.Conversations.Where(c => c.User == user).ToList();
         }
 
-        [HttpDelete]
+        [HttpDelete("{userid}/{threadid}")]
         public async Task<ActionResult> DeleteThread(int userid, int threadid)
         {
             var user = await _context.Users.FindAsync(userid);

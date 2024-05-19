@@ -2,13 +2,9 @@ using chatbotv1.Models.OpenAI;
 
 public class History
 {
-    public int Id { get; }
-    public List<IMessage> Messages { get; }
-    public History(User user) {
-        Messages = [];
-        User = user;
-    }
-    public User User{ get; set; }
+    public int Id { get; set;}
+    public List<IMessage> Messages { get; } = new List<IMessage>();
+    public User User{ get; set; } = default!;
 
     public History AddMessage(IMessage message)
     {
