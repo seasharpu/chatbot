@@ -1,10 +1,18 @@
+using System.Collections;
+using System.Text.Json;
+using chatbotv1.Data;
+using chatbotv1.Models.OpenAI;
+using chatbotv1.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 namespace chatbotv1.Controllers
 {
     [ApiController]
     [Route("users")]
-    public class UserController(mydbcontext dbContext) : ControllerBase
+    public class UserController(MyDBContext dbContext) : ControllerBase
     {
-        private readonly mydbcontext _context = dbContext;
+        private readonly MyDBContext _context = dbContext;
 
         [HttpGet("{userid}")]
         public async Task<User> getUser(int userid)
@@ -19,30 +27,30 @@ namespace chatbotv1.Controllers
         }
 
 
-        [httpPost]
-        public async Task<iActionResult> newUser(string userName, string password)
+        [HttpPost]
+        public async Task<IActionResult> newUser(string userName, string password)
         {
-            var User = new User() { Name = userName, Password = password };
-            _context.users.Add(User);
+            var User = new User() { UserName = userName, Password = password };
+            _context.Users.Add(User);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("getUser", new { id = user.id }, user)
+            return CreatedAtAction("getUser", new { id = user.id }, User);
         }
 
 
-        [httpPut("{userid}")]
+        [HttpPut("{userid}")]
         public async Task<User> updateUser(int userid, string userName, string password)
         {
             var User = await getUser(userid);
-            User.userName = userName;
-            User.password = password;
+            User.UserName = userName;
+            User.Password = password;
             await _context.SaveChangesAsync();
             return User;
         }
 
 
         //NEWLY ADDED BY ALEX
-        [httpDelete("{userid}")]
-        public async Task<iActionResult> deleteUser(int userid)
+        [HttpDelete("{userid}")]
+        public async Task<IActionResult> deleteUser(int userid)
         {
             var user = await _context.Users.FindAsync(userid);
             if (user == null)
@@ -50,7 +58,7 @@ namespace chatbotv1.Controllers
                 return Challenge();
             }
 
-            _context.users.Remove(userid);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return NoContent();
         }
