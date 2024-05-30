@@ -21,19 +21,20 @@ namespace chatbotv1.Controllers
         }
 
         //NEWLY ADDED BY ALEX
-        public async Task<User> getAllUsers()
+        [HttpGet]
+        public async Task<List<User>> getAllUsers()
         {
-            return await _context.Users.FindAsync();
+            return await _context.Users.ToListAsync();
         }
 
-
+        // PROBLEM
         [HttpPost]
         public async Task<IActionResult> newUser(string userName, string password)
         {
             var User = new User() { UserName = userName, Password = password };
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("getUser", new { id = user.id }, User);
+            return CreatedAtAction("getUser", new { id = User.Id }, User);
         }
 
 
@@ -62,6 +63,5 @@ namespace chatbotv1.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
-        //TO DO: delete function, getallusers function
     }
 }
