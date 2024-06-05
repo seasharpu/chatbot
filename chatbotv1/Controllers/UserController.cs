@@ -56,7 +56,7 @@ namespace chatbotv1.Controllers
             var user = await _context.Users.FindAsync(userid);
             if (user == null)
             {
-                return Challenge();
+                return BadRequest();
             }
 
             _context.Users.Remove(user);
