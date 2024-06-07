@@ -14,20 +14,38 @@ namespace chatbotv1.Controllers
     {
         private readonly MyDBContext _context = dbContext;
 
-        [HttpGet("{userid}")]
         public async Task<User> getUser(int userid)
         {
             return await _context.Users.FindAsync(userid);
         }
 
-        //NEWLY ADDED BY ALEX
+        //RECENT DTO EDIT
+        [HttpGet("{userid}")]
+        public async Task<ActionResult<UserDto>> getUserDTO(User UserDTO)
+        {
+            var user = await _context.Users.FindAsync(UserDTO.Id);
+
+            if (User == null)
+            {
+                return Challenge();
+            }
+
+            var userDto = new UserDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+            };
+
+            return Ok(userDto);
+        }
+
         [HttpGet]
         public async Task<List<User>> getAllUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        // PROBLEM
+
         [HttpPost]
         public async Task<IActionResult> newUser(string userName, string password)
         {
@@ -37,19 +55,23 @@ namespace chatbotv1.Controllers
             return CreatedAtAction("getUser", new { id = User.Id }, User);
         }
 
-
+        //RECENT DTO EDIT
         [HttpPut("{userid}")]
-        public async Task<User> updateUser(int userid, string userName, string password)
+        public async Task<ActionResult<UserDto>> updateUser(UserDto userDto)
         {
-            var User = await getUser(userid);
-            User.UserName = userName;
-            User.Password = password;
+            var user = await getUser(userDto.Id);
+           
+
+            user.UserName = userDto.UserName;
+            user.Password = userDto.Password;
+
             await _context.SaveChangesAsync();
-            return User;
+
+            return Ok(User);
         }
 
 
-        //NEWLY ADDED BY ALEX
+
         [HttpDelete("{userid}")]
         public async Task<IActionResult> deleteUser(int userid)
         {
