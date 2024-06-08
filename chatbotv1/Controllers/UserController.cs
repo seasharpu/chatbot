@@ -14,35 +14,40 @@ namespace chatbotv1.Controllers
     {
         private readonly MyDBContext _context = dbContext;
 
-        public async Task<User> getUser(int userid)
+
+        private async Task<User> getUserInternal(int userid)
         {
             return await _context.Users.FindAsync(userid);
         }
 
         //RECENT DTO EDIT
         [HttpGet("{userid}")]
-        public async Task<ActionResult<UserDto>> getUserDTO(User UserDTO)
+        public async Task<UsernameDto> getUser(int userid)
         {
-            var user = await _context.Users.FindAsync(UserDTO.Id);
+            var user = await getUserInternal(userid);
 
-            if (User == null)
-            {
-                return Challenge();
-            }
-
-            var userDto = new UserDto
+            var dto = new UsernameDto()
             {
                 Id = user.Id,
                 UserName = user.UserName,
             };
 
-            return Ok(userDto);
+            return dto;
         }
 
+         //RECENT DTO EDIT
         [HttpGet]
-        public async Task<List<User>> getAllUsers()
+        public async Task<List<UsernameDto>> getAllUsers()
         {
-            return await _context.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();
+
+            List<UsernameDto> userList = users.ConvertAll(user => new UsernameDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+            });
+
+            return userList;
         }
 
 
@@ -52,22 +57,27 @@ namespace chatbotv1.Controllers
             var User = new User() { UserName = userName, Password = password };
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("getUser", new { id = User.Id }, User);
+            return CreatedAtAction("getUserInternal", new { id = User.Id }, User);
         }
 
         //RECENT DTO EDIT
         [HttpPut("{userid}")]
-        public async Task<ActionResult<UserDto>> updateUser(UserDto userDto)
+        public async Task<ActionResult<UsernameDto>> updateUser(UsernameAndPasswordDto usernameAndPasswordDto)
         {
-            var user = await getUser(userDto.Id);
-           
+            var user = await getUserInternal(usernameAndPasswordDto.Id);
 
-            user.UserName = userDto.UserName;
-            user.Password = userDto.Password;
+            user.UserName = usernameAndPasswordDto.UserName;
+            user.Password = usernameAndPasswordDto.Password;
 
             await _context.SaveChangesAsync();
 
-            return Ok(User);
+            var dto = new UsernameDto()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+            };
+
+            return Ok(dto);
         }
 
 
@@ -75,7 +85,7 @@ namespace chatbotv1.Controllers
         [HttpDelete("{userid}")]
         public async Task<IActionResult> deleteUser(int userid)
         {
-            var user = await _context.Users.FindAsync(userid);
+            var user = await getUserInternal(userid);
             if (user == null)
             {
                 return BadRequest();

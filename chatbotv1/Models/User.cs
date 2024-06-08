@@ -6,7 +6,15 @@ public class User
     public DateTime lastActivity { get; set; }
 }
 
-public class UserDto
+//RECENT DTO EDIT
+public class UsernameDto
+{
+    public int Id { get; set; }
+    public string UserName { get; set; } = string.Empty;
+}
+
+//RECENT DTO EDIT
+public class UsernameAndPasswordDto
 {
     public int Id { get; set; }
     public string UserName { get; set; } = string.Empty;
