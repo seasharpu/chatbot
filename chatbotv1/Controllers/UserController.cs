@@ -21,10 +21,29 @@ namespace chatbotv1.Controllers
         }
 
         //RECENT DTO EDIT
-        [HttpGet("{userid}")]
+        [HttpGet("{userid}")] //Variable placeholder, transfers into userid argument. Required to get info from URL as it doesnt have a body request info
         public async Task<ActionResult<UsernameDto>> getUser(int userid)
         {
             var user = await getUserInternal(userid);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var dto = new UsernameDto()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+            };
+
+            return dto;
+        }
+
+        [HttpPost("Login")] //Creates an endpoint path /Login
+        public async Task<ActionResult<UsernameDto>> loginUser(UsernameAndPasswordDto userDto)
+        {
+            var user = await _context.Users.Where(x => x.UserName == userDto.UserName && x.Password == userDto.Password).FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -57,19 +76,27 @@ namespace chatbotv1.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> newUser(string userName, string password)
+        public async Task<IActionResult> newUser(UsernameAndPasswordDto userDto)
         {
-            var User = new User() { UserName = userName, Password = password };
+            var User = new User() { UserName = userDto.UserName, Password = userDto.Password };
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("getUserInternal", new { id = User.Id }, User);
+            var returnDto = new UsernameDto() { UserName = userDto.UserName, Id = User.Id}; 
+            return CreatedAtAction("getUserInternal", new { id = User.Id }, returnDto); 
+            //returns 201 code. first parameter is where it can fetch new user from. second parameter is the parameter for this URL. third parameter is the return object.
         }
 
         //RECENT DTO EDIT
         [HttpPut("{userid}")]
         public async Task<ActionResult<UsernameDto>> updateUser(UsernameAndPasswordDto usernameAndPasswordDto)
         {
-            var user = await getUserInternal(usernameAndPasswordDto.Id);
+            var userId = usernameAndPasswordDto.Id;
+
+            if(userId == null){
+                return BadRequest();
+            }
+
+            var user = await getUserInternal(userId ?? 0);
             if (user == null)
             {
                 return BadRequest();
@@ -94,7 +121,7 @@ namespace chatbotv1.Controllers
         public async Task<IActionResult> deleteUser(int userid)
         {
             var user = await getUserInternal(userid);
-            
+
             if (user == null)
             {
                 return BadRequest();
